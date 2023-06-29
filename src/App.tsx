@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import "./App.css";
+import Dashboard from "./components/Dashboard";
+import Proteced from "./components/Proteced";
+import Layout from "./components/Layout";
+import Articles from "./components/Articles";
+import { Button } from "react-bootstrap";
+import Auth from "./components/Auth";
 
 function App() {
+  const navigate = useNavigate();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello ReactJS Course</h1>
+      <Link to="/" className="me-2">
+        Dashboard
+      </Link>
+      <Link to="/protected" className="me-2">
+        Proteced
+      </Link>
+      <Button variant="primary" onClick={() => navigate("/protected")}>
+        Go to protected
+      </Button>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route
+            path="/protected"
+            element={
+              <Auth>
+                <Proteced />
+              </Auth>
+            }
+          />
+          <Route path="/articles/:id" element={<Articles />} />
+          <Route path="*" element={<div>404</div>} />
+        </Route>
+      </Routes>
     </div>
   );
 }
