@@ -1,0 +1,128 @@
+•••React Elements https://www.w3schools.com/react/react_render.asp
+
+Esercizio 1
+Visualizzare un paragrafo all'interno di un elemento con l'id di "root"
+-------------------------------------------------------------------------------------
+
+Esercizio 2
+Creare una variabile che contenga codice HTML e visualizzarla nel nodo "root"
+-------------------------------------------------------------------------------------
+
+
+•••React Props https://gist.github.com/ross-u/486f628ca631825a340cd2d118436bef
+
+Task 1
+• Per prima cosa creare una cartella dei componenti (/components) all'interno della cartella src/. 
+• Dopo aver creato la cartella, creare i file Title.tsx, Description.tsx e Header.tsx nella directory src/components.
+-------------------------------------------------------------------------------------
+
+Task 2
+• Crea il componente Title.tsx utilizzando la sintassi dei functional components.
+• Il componente riceve la prop (appTitle), dal component Header.js.
+N.B Quando creiamo componenti in React, dobbiamo specificare le props come argomento della funzione del componente per poter accedervi.
+-------------------------------------------------------------------------------------
+
+Task 3
+• Crea il componente Description.tsx utilizzando la sintassi dei functional components.
+• Il componente riceverà props tramite come nested children (ricordate props.children)
+N.B Quando creiamo componenti in React, dobbiamo specificare le props come argomento della funzione del componente per poter accedervi.
+-------------------------------------------------------------------------------------
+
+Task 4
+• Importa i componenti appena creati <Title /> e <Description /> nel componente Header.tsx.
+• Posiziona i nuovi componenti all'interno del tag <header> </header>.
+• Passa la prop appTitle contenente il valore "Welcome To React, Folks!" al componente <Title/>.
+• Passa la stringa "Sei pronto per passare al livello successivo!" racchiuso tra i tag <Description> </Description> .
+• Dovrai utilizzare il tag di apertura e di chiusura in modo che il componente possa accedere al valore della stringa tramite props.children 
+che abbiamo specificato in precedenza durante la creazione del componente Description.tsx.
+• Verifica di aver già importato il componente Header nel componente root App.tsx.
+-------------------------------------------------------------------------------------
+
+
+•••Esercizi https://contactmentor.com/react-js-practice-exercises-solution/?expand_article=1
+
+Esercizio 1
+Creazione di un contatore utilizzando React i cui incrementi o decrementi vengono conteggiati dinamicamente sullo schermo mentre l'utente fa clic sul pulsante. 
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Crea lo stato React per memorizzare il valore del conteggio.
+• Dichiara le funzioni JS per incrementare o decrementare il valore tramite setState().
+• Aggiungi pulsanti HTML con onClick al codice JSX.
+-------------------------------------------------------------------------------------
+
+Esercizio 2
+
+Stampare ciascun elemento dell'elenco sulla pagina utilizzando la funzione Array.map().
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Dichiara l'elenco di elementi come JS Array.
+• Accedi a ciascun elemento utilizzando Array.map()
+• Restituisce il codice JSX nella funzione di callback per ogni elemento.
+-------------------------------------------------------------------------------------
+
+Esercizio 3
+
+Creazione di un filtro di ricerca per visualizzare un elenco filtrato in base alla query di ricerca inserita dall'utente.
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Utilizza gli State di React.
+• Crea un testo di input HTML per inserire il termine (caratteri) di ricerca e aggiornare lo State nella funzione onChange.
+• Utilizzo di Array.filter() per filtare l'elenco di elementi con il valore del termine (caratteri) di ricerca.
+-------------------------------------------------------------------------------------
+
+Esercizio 4
+
+Creazione di un Accordion che alterna il contenuto del testo al clic dell'intestazione dello stesso utilizzando React State e il rendering condizionale.
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Mostra ogni title dell'accordion con il proprio body.
+• Nascondi ogni body dell'accordion usando element.display = none;
+• Attiva/disattiva la visibilità del body dell'accordion al clic sul title.
+-------------------------------------------------------------------------------------
+
+Esercizio 5
+
+Creazione uno slider di immagini, in cui gli utenti possono visualizzare più immagini con i pulsanti successivo/precedente. 
+Inoltre,  integrare anche un'opzione per selezionare un'immagine da qualsiasi indice dell'elenco.
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Dichiarare un'array di oggetti con id e url immagine.
+• Per la funzionalità pre/successiva, decrementiamo/incrementiamo il conteggio dell'indice dell'immagine attiva.
+• Aggiorna l'indice delle immagini attive con l'opzione selezionata.
+-------------------------------------------------------------------------------------
+
+Esercizio 6
+
+Creazione di una checklist per visualizzare una lista con diverse opzioni che si possono selezionare, le opzioni selezionate vengono visualizzate dinamicamente sullo schermo. 
+React State viene utilizzato per tenere traccia delle opzioni selezionate e il gestore di eventi onChange() 
+viene attivato per modificare lo State ogni volta che un'opzione viene selezionata o deselezionata.
+
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Creare lo State per tenere traccia del valore della checklist.
+• Utilizzare una funzione per aggiornare il valore della checkbox in base a event.target.checked
+-------------------------------------------------------------------------------------
+
+Esercizio 7
+
+Creazione di una form di login in cui l'utente accede inserendo nome utente e password. Gli input della form vengono convalidati per verificare 
+se sono state immesse informazioni corrette. La pagina di avvenuto accesso è nascosta e verrà visualizzata con il contenuto "Benvenuto, ${name}" quando l'accesso dell'utente ha esito positivo.
+
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Creazione elementi per la form di login nome, e-mail e password.
+• Utilizzo degli State per memorizzare i valori di input dell'utente.
+• Aggiungere la convalida della form per confrontare nome, e-mail e password rispettano valori corretti es(nella mail la presenza della @).
+• Visualizzare "Benvenuto, ${name}" se l'accesso è andato a buon fine, altrimenti visualizza il messaggio di errore.
+-------------------------------------------------------------------------------------
+
+Esercizio 8
+
+Creazione di un "collettore di dati" raccogliere dati rest utilizzando fetch() combinato con useEffect() per caricare il contenuto al rendering della pagina.
+
+Per completare l'esercizio seguire seguenti passaggi:
+
+• Creazione dello State per archiviare la risposta dell'API.
+• Funzione JS in cui si effettua la chiamata all'API tramite fetch().
+• Aggiungire la funzione di callback per aggiornare lo State.
+• Visualizzare la risposta dell'API.
