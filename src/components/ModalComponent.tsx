@@ -24,12 +24,10 @@ function ModalComponent({
             backdrop={backdrop}
             keyboard={keyboard}
           >
-            <Modal.Header closeButton>
+            <Modal.Header className="alert alert-primary" closeButton>
               <Modal.Title>{modalTitle}</Modal.Title>
             </Modal.Header>
-            <Modal.Body className="alert alert-primary mb-4">
-              {modalBody}
-            </Modal.Body>
+            <Modal.Body>{modalBody}</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Chiudi
@@ -53,12 +51,10 @@ function ModalComponent({
             backdrop={backdrop}
             keyboard={keyboard}
           >
-            <Modal.Header closeButton>
+            <Modal.Header className="alert alert-danger" closeButton>
               <Modal.Title>{modalTitle}</Modal.Title>
             </Modal.Header>
-            <Modal.Body className="alert alert-danger mb-4">
-              {modalBody}
-            </Modal.Body>
+            <Modal.Body>{modalBody}</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Chiudi

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
-import ModalComponent from "./ModalComponent";
 import { ModalType } from "../enums/modal";
+import { Card, Button } from "react-bootstrap";
+import ModalComponent from "./ModalComponent";
 
 interface Post {
   userId: number;
@@ -174,7 +174,6 @@ function HomeComponent() {
         backdrop="static"
         modalTitle={modalTitle}
         modalBody={modalBody}
-        id={id}
         modalType={modalType}
       />
     </>
