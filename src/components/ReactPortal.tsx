@@ -16,7 +16,6 @@ const ReactPortal = ({ children, wrapperId }: ReactPortalProps) => {
   const [wrapper, setWrapper] = useState<Element | null>(null);
 
   useLayoutEffect(() => {
-    debugger;
     // Find the container-element (if exist).
     let element = document.getElementById(wrapperId);
     // Bool flag whether container-element has been created.

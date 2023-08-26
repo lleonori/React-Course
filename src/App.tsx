@@ -3,6 +3,8 @@ import { useState } from "react";
 import ModalComponent from "./components/ModalComponent";
 import Test from "./components/Test";
 import { Button } from "react-bootstrap";
+import "./App.css";
+
 function App() {
   // Manage state of Delete Modal toggle.
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -13,10 +15,14 @@ function App() {
   };
   return (
     <div className="App">
-      <Button variant="danger" onClick={() => setOpenModal(true)}>
+      <Button variant="danger" className="me-2" onClick={() => setOpenModal(true)}>
         Delete
       </Button>
-      {/* Modal for deletion */}
+
+      <Button variant="primary" onClick={() => setOpenModal(true)}>
+        Create
+      </Button>
+
       <ModalComponent
         isOpen={openModal}
         setOn={setOpenModal}
