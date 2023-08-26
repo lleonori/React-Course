@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+// @src/App.ts
+import { useState } from "react";
+import ModalComponent from "./components/ModalComponent";
+import Test from "./components/Test";
+import { Button } from "react-bootstrap";
 function App() {
+  // Manage state of Delete Modal toggle.
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  // Handle delete comment.
+  const handleDelete = async () => {
+    // do something here, example: call delete API.
+    console.log("Deleted.");
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button variant="danger" onClick={() => setOpenModal(true)}>
+        Delete
+      </Button>
+      {/* Modal for deletion */}
+      <ModalComponent
+        isOpen={openModal}
+        setOn={setOpenModal}
+        title={`Delete`}
+        promptText={<Test />}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }
