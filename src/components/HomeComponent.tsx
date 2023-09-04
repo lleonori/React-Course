@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
-import { ModalType } from "../enums/modal";
+import { Backdrop, ModalType } from "../enums/modal";
 import { Card, Button } from "react-bootstrap";
 import ModalComponent from "./ModalComponent";
-
-interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
+import EditPostComponent from "./EditPostComponent";
+import { IPost } from "../model/IPost";
 
 function HomeComponent() {
   // inizializzare lo state con un array vuoto
@@ -16,12 +11,13 @@ function HomeComponent() {
   // potrebbe succedere
   // 1- nessun post disponibile
   // 2- la response non è ancora stata ricevuta e quindi cicleremo una lista di array vuoto
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
-  const [modalType, setModalType] = useState("");
+  const [modalType, setModalType] = useState<ModalType>(ModalType.UPDATE);
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
+  const [dataToEdit, setDataToEdit] = useState<IPost>();
 
   useEffect(() => {
     getData();
@@ -37,12 +33,13 @@ function HomeComponent() {
     setId(id);
   };
 
-  const updatePost = (id: number) => {
+  const updatePost = (post: IPost) => {
     setModalType(ModalType.UPDATE);
     setModalTitle("Modifica Post");
     setModalBody("Compila i campi per modificare il Post");
     setShow(true);
-    setId(id);
+    setId(post.id!);
+    setDataToEdit(post);
   };
 
   const getData = () => {
@@ -125,11 +122,11 @@ function HomeComponent() {
                 <div>
                   <Button
                     variant="secondary me-2"
-                    onClick={() => updatePost(post.id)}
+                    onClick={() => updatePost(post)}
                   >
                     Modifica
                   </Button>
-                  <Button variant="danger" onClick={() => deletePost(post.id)}>
+                  <Button variant="danger" onClick={() => deletePost(post.id!)}>
                     Elimina
                   </Button>
                 </div>
@@ -151,11 +148,11 @@ function HomeComponent() {
                 <div>
                   <Button
                     variant="secondary me-2"
-                    onClick={() => updatePost(post.id)}
+                    onClick={() => updatePost(post)}
                   >
                     Modifica
                   </Button>
-                  <Button variant="danger" onClick={() => deletePost(post.id)}>
+                  <Button variant="danger" onClick={() => deletePost(post.id!)}>
                     Elimina
                   </Button>
                 </div>
@@ -171,11 +168,13 @@ function HomeComponent() {
         confirmModal={confirmModalAction}
         animation={false}
         keyboard={false}
-        backdrop="static"
+        backdrop={Backdrop.STATIC}
+        modalType={modalType}
         modalTitle={modalTitle}
         modalBody={modalBody}
-        modalType={modalType}
-      />
+      >
+        <EditPostComponent {...dataToEdit!} />
+      </ModalComponent>
     </>
   );
 }

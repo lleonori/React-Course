@@ -1,6 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ModalType } from "../enums/modal";
+import { Row, Col } from "react-bootstrap";
+import { IModal } from "../model/Imodal";
 
 function ModalComponent({
   show,
@@ -9,10 +11,11 @@ function ModalComponent({
   animation,
   keyboard,
   backdrop,
+  modalType,
   modalTitle,
   modalBody,
-  modalType,
-}: any) {
+  children,
+}: IModal) {
   if (modalType === ModalType.UPDATE) {
     return (
       <>
@@ -27,12 +30,19 @@ function ModalComponent({
             <Modal.Header className="alert alert-primary" closeButton>
               <Modal.Title>{modalTitle}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>{modalBody}</Modal.Body>
+            <Modal.Body>
+              <Row className="mb-4">
+                <Col>{modalBody}</Col>
+              </Row>
+              <Row>
+                <Col>{children}</Col>
+              </Row>
+            </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Chiudi
               </Button>
-              <Button variant="primary" onClick={confirmModal}>
+              <Button variant="danger" onClick={confirmModal}>
                 Salva
               </Button>
             </Modal.Footer>
