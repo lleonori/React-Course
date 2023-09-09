@@ -9,7 +9,7 @@ export interface IModal {
   animation: boolean;
   keyboard: boolean;
   backdrop: Backdrop;
-  modalType?: ModalType;
+  modalType: ModalType;
   modalTitle: string;
   modalBody: string;
   modalData?: any;
