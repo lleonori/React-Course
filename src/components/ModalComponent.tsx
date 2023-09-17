@@ -1,126 +1,50 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Row, Col, Form } from "react-bootstrap";
-import { IModal } from "../model/IModal";
-import { useEffect, useState } from "react";
-import { IPost } from "../model/IPost";
+import { Row, Col } from "react-bootstrap";
+import { useContext } from "react";
 import { ModalType } from "../enums/modal";
+import { ModalContext } from "../context/ModalContext";
 
-function ModalComponent({
-  show,
-  handleClose,
-  confirmModal,
-  animation,
-  keyboard,
-  backdrop,
-  modalType,
-  modalTitle,
-  modalBody,
-  modalData,
-}: IModal) {
-  const [editedData, setEditedData] = useState<IPost>({
-    id: 0,
-    title: "",
-    body: "",
-  });
+function ModalComponent({ children }: { children: React.ReactNode }) {
+  const modalProps = useContext(ModalContext)!;
 
-  useEffect(() => {
-    if (modalData) {
-      setEditedData(modalData);
-    }
-  }, [modalData]);
-
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedData((prevData: IPost) => ({
-      ...prevData,
-      title: event.target.value,
-    }));
-  };
-
-  const handleBodyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedData((prevData: IPost) => ({
-      ...prevData,
-      body: event.target.value,
-    }));
-  };
-
-  if (modalType === ModalType.UPDATE) {
+  if (modalProps.modalType === ModalType.UPDATE) {
     return (
       <Modal
-        show={show}
-        onHide={handleClose}
-        animation={animation}
-        backdrop={backdrop}
-        keyboard={keyboard}
+        show={modalProps.show}
+        onHide={modalProps.handleClose}
+        animation={modalProps.animation}
+        backdrop={modalProps.backdrop}
+        keyboard={modalProps.keyboard}
       >
         <Modal.Header className="alert alert-primary" closeButton>
-          <Modal.Title>{modalTitle}</Modal.Title>
+          <Modal.Title>{modalProps.modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="pb-0">
           <Row className="mb-4">
-            <Col>{modalBody}</Col>
+            <Col>{modalProps.modalBody}</Col>
           </Row>
-          <Row>
-            <Form>
-              <Form.Group className="mb-3" controlId="postTitle">
-                <Form.Label>
-                  <strong>Titolo del Post:</strong>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Titolo del Post"
-                  value={editedData.title}
-                  onChange={handleTitleChange}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="postContent"></Form.Group>
-              <Form.Label>
-                <strong>Contenuto del Post:</strong>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Contenuto del Post"
-                value={editedData.body}
-                onChange={handleBodyChange}
-              />
-            </Form>
-          </Row>
+          <Row>{children}</Row>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Chiudi
-          </Button>
-          <Button variant="primary" onClick={() => confirmModal(editedData)}>
-            Salva
-          </Button>
-        </Modal.Footer>
       </Modal>
     );
   } else {
     return (
       <Modal
-        show={show}
-        onHide={handleClose}
-        animation={animation}
-        backdrop={backdrop}
-        keyboard={keyboard}
+        show={modalProps.show}
+        onHide={modalProps.handleClose}
+        animation={modalProps.animation}
+        backdrop={modalProps.backdrop}
+        keyboard={modalProps.keyboard}
       >
         <Modal.Header className="alert alert-danger" closeButton>
-          <Modal.Title>{modalTitle}</Modal.Title>
+          <Modal.Title>{modalProps.modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="pb-0">
           <Row className="mb-4">
-            <Col>{modalBody}</Col>
+            <Col>{modalProps.modalBody}</Col>
           </Row>
+          <Row>{children}</Row>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Chiudi
-          </Button>
-          <Button variant="danger" onClick={() => confirmModal(editedData)}>
-            Salva
-          </Button>
-        </Modal.Footer>
       </Modal>
     );
   }

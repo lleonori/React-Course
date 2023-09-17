@@ -3,8 +3,15 @@ import { Card, Button } from "react-bootstrap";
 import { IPost } from "../model/IPost";
 import ModalComponent from "./ModalComponent";
 import { Backdrop, ModalType } from "../enums/modal";
+import EditPostComponent from "./EditPostComponent";
+import { ModalContext } from "../context/ModalContext";
+import DeletePostComponent from "./DeletePostComponent";
 
 function HomeComponent() {
+  // variabile per utilizzo modale
+  const animation: boolean = false;
+  const keyboard: boolean = false;
+  const backdrop: Backdrop = Backdrop.STATIC;
   // inizializzare lo state con un array vuoto
   // dovendo cicle i post che ci tornano dalla response
   // potrebbe succedere
@@ -31,50 +38,58 @@ function HomeComponent() {
 
   const handleClose = () => setShow(false);
 
-  const confirmModalAction = async (data: IPost) => {
+  const handleSubmit = (postData: IPost) => {
     if (modalType === ModalType.UPDATE) {
-      const settings = {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-      try {
-        const fetchResponse = await fetch(
-          `https://64ce4c350c01d81da3eeac17.mockapi.io/api/posts/${data.id}`,
-          settings
-        );
-        await fetchResponse.json();
-        // modal hide
-        setShow(false);
-        // refresh data after delete record
-        getData();
-      } catch (e) {
-        return e;
-      }
-    } else {
-      const settings = {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      };
-      try {
-        const fetchResponse = await fetch(
-          `https://64ce4c350c01d81da3eeac17.mockapi.io/api/posts/${data.id}`,
-          settings
-        );
-        await fetchResponse.json();
-        // modal hide
-        setShow(false);
-        // refresh data after delete record
-        getData();
-      } catch (e) {
-        return e;
-      }
+      submitUpdate(postData);
+    } else if (modalType === ModalType.DELETE) {
+      submitDelete(postData.id);
+    }
+  };
+
+  const submitUpdate = async (postData: IPost) => {
+    const settings = {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    };
+    try {
+      const fetchResponse = await fetch(
+        `https://64ce4c350c01d81da3eeac17.mockapi.io/api/posts/${postData.id}`,
+        settings
+      );
+      await fetchResponse.json();
+      // modal hide
+      setShow(false);
+      // refresh data after delete record
+      getData();
+    } catch (e) {
+      return e;
+    }
+  };
+
+  const submitDelete = async (id: number) => {
+    const settings = {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const fetchResponse = await fetch(
+        `https://64ce4c350c01d81da3eeac17.mockapi.io/api/posts/${id}`,
+        settings
+      );
+      await fetchResponse.json();
+      // modal hide
+      setShow(false);
+      // refresh data after delete record
+      getData();
+    } catch (e) {
+      return e;
     }
   };
 
@@ -152,18 +167,32 @@ function HomeComponent() {
         }
       })}
 
-      <ModalComponent
-        show={show}
-        handleClose={handleClose}
-        confirmModal={confirmModalAction}
-        animation={false}
-        keyboard={false}
-        backdrop={Backdrop.STATIC}
-        modalType={modalType}
-        modalTitle={modalTitle}
-        modalBody={modalBody}
-        modalData={dataToEdit}
-      />
+      <ModalContext.Provider
+        value={{
+          show,
+          handleClose,
+          animation,
+          keyboard,
+          backdrop,
+          modalType,
+          modalTitle,
+          modalBody,
+        }}
+      >
+        <ModalComponent>
+          {modalType === ModalType.UPDATE ? (
+            <EditPostComponent
+              dataToEdit={dataToEdit!}
+              onSubmit={handleSubmit}
+            />
+          ) : (
+            <DeletePostComponent
+              dataToEdit={dataToEdit!}
+              onSubmit={handleSubmit}
+            />
+          )}
+        </ModalComponent>
+      </ModalContext.Provider>
     </>
   );
 }
