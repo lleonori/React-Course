@@ -1,5 +1,4 @@
 import { Backdrop, ModalType } from "../enums/modal";
-import { IPost } from "./IPost";
 
 export interface IModal {
   show: boolean;

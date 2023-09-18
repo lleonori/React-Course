@@ -21,7 +21,7 @@ function DeletePostComponent(props: ChildComponentProps) {
         Chiudi
       </Button>
       <Button variant="danger" onClick={handleSubmit}>
-        Salva
+        Elimina
       </Button>
     </div>
   );
